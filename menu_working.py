@@ -68,3 +68,7 @@ i=1
 for key,value in menu.items():
     print(f"{i}:{key}")
     i+=1
+#Get user input for menu selection
+
+user_input=int(input("What would you like to order? Please press the corresponding number from the menu below:"))
+print(user_input)

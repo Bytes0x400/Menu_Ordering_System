@@ -64,6 +64,15 @@ menu.items()
 #print(new_menu)
 
 #Using a counter (i)show the main headings
+def getheadings(primary,secondary):
+    i=1
+    secondary={}
+    for key,value in primary.items():
+        print(f"{i}:{key}")
+        secondary.update({i:key})
+        i+=1
+
+
 i=1
 menu_main_headings={}
 for key,value in menu.items():
@@ -93,6 +102,10 @@ print(type(sub_menu))
 print(sub_menu)
 
 #sub_menu keys list
-
+menu_sub_headings={}
+i=1
 for key in sub_menu:
-    print(key)
+    print(f"{i}:{key}")
+    menu_sub_headings.update({i:key})
+    i+=1
+print(menu_sub_headings)

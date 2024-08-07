@@ -65,10 +65,34 @@ menu.items()
 
 #Using a counter (i)show the main headings
 i=1
+menu_main_headings={}
 for key,value in menu.items():
     print(f"{i}:{key}")
+    menu_main_headings.update({i:key})
     i+=1
 #Get user input for menu selection
 
-user_input=int(input("What would you like to order? Please press the corresponding number from the menu below:"))
+user_input=int(input("\nWhat would you like to order? Please press the corresponding number from the menu.\n"))
 print(user_input)
+print(menu_main_headings)
+
+#validate user_input before moving ahead
+if menu_main_headings.get(user_input):
+    print("hooray")
+else:
+    print("Please enter a number between 1 and 4")
+#### Complete above condition to break out if user enters wrong input multiple times
+#Capture the main menu selection in a variable
+user_main_menu_selection=menu_main_headings.get(user_input)
+#print(user_main_menu_selection)
+print(menu.get(user_main_menu_selection))
+
+#capture the sub_menu in a new directory
+sub_menu=(menu.get(user_main_menu_selection))
+print(type(sub_menu))
+print(sub_menu)
+
+#sub_menu keys list
+
+for key in sub_menu:
+    print(key)

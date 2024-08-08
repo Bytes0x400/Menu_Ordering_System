@@ -117,6 +117,10 @@ user_input_sub_heading=int(input("\nPlease enter the number corresponding to the
 if menu_sub_headings.get(user_input_sub_heading):
 #print(sub_menu.get(menu_sub_headings[user_input_sub_heading]))
 #save the item list in a new dictionary called item_list
-    item_list=sub_menu.get(menu_sub_headings[user_input_sub_heading])
-    for key, value in item_list.items():
-        print(key, value)
+    item_list_with_price=sub_menu.get(menu_sub_headings[user_input_sub_heading])
+    print(item_list_with_price['Small'])
+    i=1; item_list={}
+    for key in item_list_with_price.items():
+        item_list.update({i:key})
+        i+=1
+    print(item_list)

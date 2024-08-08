@@ -94,18 +94,29 @@ else:
 #Capture the main menu selection in a variable
 user_main_menu_selection=menu_main_headings.get(user_input)
 #print(user_main_menu_selection)
-print(menu.get(user_main_menu_selection))
+#print(menu.get(user_main_menu_selection))
 
 #capture the sub_menu in a new directory
 sub_menu=(menu.get(user_main_menu_selection))
-print(type(sub_menu))
+#print(type(sub_menu))
 print(sub_menu)
 
 #sub_menu keys list
+print(f"What would you like to order from the {user_main_menu_selection} menu?\n")
 menu_sub_headings={}
 i=1
 for key in sub_menu:
     print(f"{i}:{key}")
     menu_sub_headings.update({i:key})
     i+=1
+#3
 print(menu_sub_headings)
+
+#User Input for Sub Menu Heading Item
+user_input_sub_heading=int(input("\nPlease enter the number corresponding to the item list\n"))
+if menu_sub_headings.get(user_input_sub_heading):
+#print(sub_menu.get(menu_sub_headings[user_input_sub_heading]))
+#save the item list in a new dictionary called item_list
+    item_list=sub_menu.get(menu_sub_headings[user_input_sub_heading])
+    for key, value in item_list.items():
+        print(key, value)

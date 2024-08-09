@@ -59,6 +59,7 @@ print("Welcome to the variety food truck.\n")
 # Customers may want to order multiple items, so let's create a continuous
 # loop
 place_order = True
+counter=0
 while place_order:
     # Ask the customer from which menu category they want to order
     print("From which menu would you like to order? \n")
@@ -79,7 +80,8 @@ while place_order:
 
     # Get the customer's input
     menu_category = input("Type menu number: \n")
-
+    #counter for tracking incorrect main menu entries
+    #counter=0
     # Check if the customer's input is a number
     if menu_category.isdigit():
         print("Row85 first condition of digit passed")
@@ -166,8 +168,17 @@ while place_order:
         else:
             # Tell the customer they didn't select a menu option
             print(f"{menu_category} was not a menu option.")
+            counter+=1
+            if counter == 3:
+                print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row172)")
+                break
     else:
-        print(f'{menu_category} is not a valid selection (row 170)')    
+        print(f'{menu_category} is not a valid selection (row 170)')
+        #counter to terminate ordering process after 3 wrong inputs    
+        counter+=1
+        if counter == 3:
+            print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row 178)")
+            break
         # Tell the customer they didn't select a number
             #print("You didn't select a valid number.")
 

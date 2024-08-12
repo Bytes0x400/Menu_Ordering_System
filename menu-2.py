@@ -150,6 +150,12 @@ while place_order:
                         print(f'{i}:  Item name: {item["Item name"]}\n    Price: {item["Price"]}\n    Quantity:{item["Quantity"]}')
                         Price_total.append({item["Quantity"] * item["Price"]}); print(f'Your Total Price is :{Price_total[-1]}\n')
                         i+=1
+                    #while True:
+    #     # Ask the customer if they would like to order anything else
+    #     keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
+    #     print(keep_ordering)
+    #     if keep_ordering.upper == 'N':
+    #         break
                 else:
                     print(f'You selected {menu_selection} which is an invalid input')  
                     #break  
@@ -182,12 +188,7 @@ while place_order:
         # Tell the customer they didn't select a number
             #print("You didn't select a valid number.")
 
-    # while True:
-    #     # Ask the customer if they would like to order anything else
-    #     keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
-    #     print(keep_ordering)
-    #     if keep_ordering.upper == 'N':
-    #         break
+    # 
     #     # 5. Check the customer's input3
 
 

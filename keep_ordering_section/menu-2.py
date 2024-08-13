@@ -158,36 +158,36 @@ while place_order:
                         # Ask the customer if they would like to order anything else
                         keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
                         print(keep_ordering)
-                        if keep_ordering.upper == 'N':
+                        if keep_ordering.upper == 'Y':
+                            print("row162 condition met")
                             break
-                else:
-                    print(f'You selected {menu_selection} which is an invalid input')  
-                    #break  
+                    else:
+                        print(f'You selected {menu_selection} which is an invalid input row164')  
+                        #break  
 
-            else:
-                print(f"Your selection is {menu_selection} which is an invalid input, try again ")
+        else:
+            print(f"Your sub menu selection is {menu_selection} which is an invalid input, try again; row 168 ")
 
                         # Tell the customer that their input isn't valid
 
 
-                # Tell the customer they didn't select a menu option
-
-        
-    
-            
+                # Tell the customer they didn't select a menu option     
         else:
             # Tell the customer they didn't select a menu option
-            print(f"{menu_category} was not a menu option.")
+            print(f"{menu_category} was not a menu option.(row176)")
             counter+=1
             if counter == 3:
-                print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row172)")
+                print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row179)")
                 break
     else:
-        print(f'{menu_category} is not a valid selection (row 170)')
+        print(f'{menu_category} is not a digit (row 182, try again ')
         #counter to terminate ordering process after 3 wrong inputs    
         counter+=1
         if counter == 3:
-            print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row 178)")
+            print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row 186)")
+            break
+    if counter == 3:
+            print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row 193)")
             break
         # Tell the customer they didn't select a number
             #print("You didn't select a valid number.")
@@ -209,7 +209,7 @@ while place_order:
 
 
                 # Tell the customer to try again
-
+#while break from row 63
 
 # Print out the customer's order
 print("This is what we are preparing for you.\n")

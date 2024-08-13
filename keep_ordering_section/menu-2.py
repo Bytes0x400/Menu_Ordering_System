@@ -60,7 +60,9 @@ print("Welcome to the variety food truck.\n")
 # loop
 place_order = True
 counter=0
+
 while place_order:
+    
     # Ask the customer from which menu category they want to order
     print("From which menu would you like to order? \n")
 
@@ -143,7 +145,8 @@ while place_order:
                          quantity=1
             
                     #Add the item to the order_list
-                    order_list.append({"Item name":item_name["Item name"],"Price":float(item_name["Price"]),"Quantity":quantity})
+                    #price_float = float("{:.2f}".format(float(price)))
+                    order_list.append({"Item name":item_name["Item name"],"Price":float("{:.2f}".format(item_name["Price"])),"Quantity":quantity})
                     #Provide the customer with the latest order status
                     print("Your order list is as below:\n")
                     i=1; Price_total =[]
@@ -154,86 +157,96 @@ while place_order:
                         Price_total.append(rounded_total_price)
                         print(f'Your Total Price is: {sum(Price_total):.2f}\n')  # Print cumulative total price rounded to 2 decimal places
                         i += 1
-                    while True:
-                        # Ask the customer if they would like to order anything else
-                        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
-                        print(keep_ordering)
-                        if keep_ordering.upper == 'Y':
-                            print("row162 condition met")
-                            break
-                    else:
-                        print(f'You selected {menu_selection} which is an invalid input row164')  
-                        #break  
-
-        else:
-            print(f"Your sub menu selection is {menu_selection} which is an invalid input, try again; row 168 ")
+                    # while True:
+                    #     # Ask the customer if they would like to order anything else
+                    #     keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
+                    #     print(keep_ordering)
+                    #     if keep_ordering.upper() == 'Y':
+                    #         print("row162 condition met")
+                    #         break
+                    #     break
+                            #
+                    # else:
+                    #     print(f'You selected {menu_selection} which is an invalid input row164')  
+                    #     #break  
+                else:
+                    print(f"Your sub menu selection is invalid, try again; row 168 ")
+                    counter+=1
+            
+            else:
+                print(f"Your sub menu selection is {menu_selection} which is an invalid input, try again; row 168 ")
+                counter+=1
 
                         # Tell the customer that their input isn't valid
 
 
                 # Tell the customer they didn't select a menu option     
         else:
-            # Tell the customer they didn't select a menu option
-            print(f"{menu_category} was not a menu option.(row176)")
+            print(f"{menu_category} is not a valid selection.(row180)")
             counter+=1
-            if counter == 3:
-                print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row179)")
-                break
+    
     else:
-        print(f'{menu_category} is not a digit (row 182, try again ')
-        #counter to terminate ordering process after 3 wrong inputs    
+            # Tell the customer they didn't select a menu option
+        print(f"{menu_category} is not a digit, please select a valid option.(row184) {counter}")
         counter+=1
-        if counter == 3:
-            print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row 186)")
-            break
     if counter == 3:
-            print("You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row 193)")
+        print(f"You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row187){counter}")
+        break
+    #Define a list for the valid inputs for any additional ordering!!
+    valid_inputs=["y","Y","n","N"]   
+    while True:
+        #Ask the customer if they would like to order anything else
+        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
+        print(keep_ordering)
+        #if the input is part of the valid_inputs list then only the prompt would exit from this while loop
+        if keep_ordering in valid_inputs:
             break
-        # Tell the customer they didn't select a number
-            #print("You didn't select a valid number.")
+    while True:
+              
+        if keep_ordering.upper() == 'N':   
+            #This break statement gets you back to the Main Menu to start adding items to your order
+            break 
+        # This break statement exits out of the keep ordering loop.
+        print("line 203")
+        break    
+    #This break statement exits out of the Main Menu Ordering
+    if keep_ordering.upper() == 'N':
+        print(f"{keep_ordering} line 206")
+        print("Thank you for your order.")
+        break
+       
 
-    # 
-    #     # 5. Check the customer's input3
-
-
-                # Keep ordering
-
-                # Exit the keep ordering question loop
-
-                # Complete the order
-
-                # Since the customer decided to stop ordering, thank them for
-                # their order
-
-                # Exit the keep ordering question loop
-
-
-                # Tell the customer to try again
-#while break from row 63
-
-# Print out the customer's order
 print("This is what we are preparing for you.\n")
 
-# Uncomment the following line to check the structure of the order
-#print(order)
+#Identify the maximum length of an Item Name string to dynamically adjust the column width
+max_value_length = max(len(str(value)) for item in order_list for value in item.values())
+itemname_spaces=max_value_length+2-len("item name")
+item_col_dashes=('-'*(max_value_length+2))
 
-print("Item name                 | Price  | Quantity")
-print("--------------------------|--------|----------")
+#Begin print of the final table
+print(f"{item_col_dashes}|-------------|----------|--------")
+print(f"Item name{' ' * itemname_spaces}| Unit Price  | Quantity |   Price")
+print(f"{item_col_dashes}|-------------|----------|--------")
+#To print the quantity total, the qty_total, pre_qty_space, post_qty_space are created
+qty_total=sum(item['Quantity'] for item in order_list)
+#The quantity column len is 10, so based on the total being 10 or lower the number of spaces have to be adjusted
+if qty_total > 9:
+    pre_qty_space = ' '*4
+    post_qty_space = ' '*4
+else:
+    pre_qty_space = ' '*4
+    post_qty_space = ' '*5
+#printing out the 4 columns - col1 for Item name, col2 for Unite Price, col3 for Quantity and col4 for Price
+for order in order_list:
+    col1 = order["Item name"]
+    col2 = order["Price"]
+    col3 = order["Quantity"]
+    #col4 is the total price column while col2 is unit price column
+    col4 = float("{:.2f}".format(col2*col3))
+    
+    print(f"{col1}{' '*(max_value_length+2-len(str(col1)))}|{' '*(13-len(str(col2)))}{col2}|{' '* 4}{col3}{' '* 5}|{' '*(8-len(str(col4)))}{col4}")
 
-# 6. Loop through the items in the customer's order
+print(f"{item_col_dashes}|-------------|----------|--------")
+print(f"Total{' '*(max_value_length+2-len(('Total')))}|{' '*13}|{pre_qty_space}{qty_total}{post_qty_space}|{' '*(8-len(str(sum(Price_total))))}{sum(Price_total):.2f}")
+print(f'\nYour Total Price is: {sum(Price_total):.2f}\n')
 
-    # 7. Store the dictionary items as variables
-
-
-    # 8. Calculate the number of spaces for formatted printing
-
-
-    # 9. Create space strings
-
-
-    # 10. Print the item name, price, and quantity
-
-
-# 11. Calculate the cost of the order using list comprehension
-# Multiply the price by quantity for each item in the order list, then sum()
-# and print the prices.

@@ -231,7 +231,7 @@ if len(order_list) > 0:
 
     print(f"{item_col_dashes}|-------------|----------|--------")
     print(f"Total{' '*(max_value_length+2-len(('Total')))}|{' '*13}|{pre_qty_space}{qty_total}{post_qty_space}|${' '*(7-len(str(Price_total_print)))}{Price_total_print}")
-    print(f'\nYour Total Price is: {sum(Price_total):.2f}\n')
+    print(f'\nYour Total Price is: ${sum(Price_total):.2f}\n')
     
 else:
     print("Exiting order as you did not enter any valid items")

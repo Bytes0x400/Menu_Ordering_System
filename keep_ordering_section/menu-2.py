@@ -1,3 +1,4 @@
+import sys
 # Menu dictionary
 menu = {
     "Snacks": {
@@ -86,15 +87,13 @@ while place_order:
     #counter=0
     # Check if the customer's input is a number
     if menu_category.isdigit():
-        print("Row85 first condition of digit passed")
         # Check if the customer's input is a valid option
         if int(menu_category) in menu_items.keys():
             # Save the menu category name to a variable
-            print("Passed row 87 if condition of int being in menu_items")
             menu_category=int(menu_category)
             menu_category_name = menu_items[menu_category]
             # Print out the menu category name they selected
-            print(f"You selected {menu_category_name}\n")
+            print(f"\nYou selected {menu_category_name}\n")
 
             # Print out the menu options from the menu_category_name
             print(f"What {menu_category_name} item would you like to order?\n")
@@ -153,28 +152,18 @@ while place_order:
                     for item in order_list:
                         total_price = item["Quantity"] * item["Price"]
                         rounded_total_price = round(total_price, 2)  # Round to 2 decimal places
-                        print(f'{i}:  Item name: {item["Item name"]}\n    Price: {item["Price"]}\n    Quantity: {item["Quantity"]}')
+                        print(f'{i}:  Item name: {item["Item name"]}\n    Price: ${item["Price"]}\n    Quantity: {item["Quantity"]}')
                         Price_total.append(rounded_total_price)
-                        print(f'Your Total Price is: {sum(Price_total):.2f}\n')  # Print cumulative total price rounded to 2 decimal places
+                        #creating a variable for the price total to print as a float with 2 decimals
+                        Price_total_print=float("{:.2f}".format(sum(Price_total)))
                         i += 1
-                    # while True:
-                    #     # Ask the customer if they would like to order anything else
-                    #     keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
-                    #     print(keep_ordering)
-                    #     if keep_ordering.upper() == 'Y':
-                    #         print("row162 condition met")
-                    #         break
-                    #     break
-                            #
-                    # else:
-                    #     print(f'You selected {menu_selection} which is an invalid input row164')  
-                    #     #break  
+                    print(f"\nYour Total Price is ${Price_total_print}")
                 else:
-                    print(f"Your sub menu selection is invalid, try again; row 168 ")
+                    print(f"Your sub menu selection is invalid, try again. ")
                     counter+=1
             
             else:
-                print(f"Your sub menu selection is {menu_selection} which is an invalid input, try again; row 168 ")
+                print(f"Your sub menu selection is {menu_selection} which is an invalid input, try again.")
                 counter+=1
 
                         # Tell the customer that their input isn't valid
@@ -182,22 +171,22 @@ while place_order:
 
                 # Tell the customer they didn't select a menu option     
         else:
-            print(f"{menu_category} is not a valid selection.(row180)")
+            print(f"{menu_category} is not a valid selection.")
+            #break
             counter+=1
     
     else:
             # Tell the customer they didn't select a menu option
-        print(f"{menu_category} is not a digit, please select a valid option.(row184) {counter}")
+        print(f"{menu_category} is not a digit, please select a valid option.")
         counter+=1
     if counter == 3:
-        print(f"You have reached the maximum number of incorrect inputs, the ordering process will terminate now (row187){counter}")
+        print(f"You have reached the maximum number of incorrect inputs, the ordering process will terminate now.")
         break
     #Define a list for the valid inputs for any additional ordering!!
     valid_inputs=["y","Y","n","N"]   
     while True:
         #Ask the customer if they would like to order anything else
         keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
-        print(keep_ordering)
         #if the input is part of the valid_inputs list then only the prompt would exit from this while loop
         if keep_ordering in valid_inputs:
             break
@@ -207,46 +196,42 @@ while place_order:
             #This break statement gets you back to the Main Menu to start adding items to your order
             break 
         # This break statement exits out of the keep ordering loop.
-        print("line 203")
         break    
     #This break statement exits out of the Main Menu Ordering
     if keep_ordering.upper() == 'N':
-        print(f"{keep_ordering} line 206")
-        print("Thank you for your order.")
         break
-       
+       #Identify the maximum length of an Item Name string to dynamically adjust the column width
+if len(order_list) > 0:
+    max_value_length = max(len(str(value)) for item in order_list for value in item.values())
+    itemname_spaces=max_value_length+2-len("item name")
+    item_col_dashes=('-'*(max_value_length+2))
+    #Begin print of the final table
+    print("Thank you for your order.\nThis is what we are preparing for you.\n")
+    print(f"{item_col_dashes}|-------------|----------|--------")
+    print(f"Item name{' ' * itemname_spaces}| Unit Price  | Quantity |   Price")
+    print(f"{item_col_dashes}|-------------|----------|--------")
+    #To print the quantity total, the qty_total, pre_qty_space, post_qty_space are created
+    qty_total=sum(item['Quantity'] for item in order_list)
+    #The quantity column len is 10, so based on the total being 10 or lower the number of spaces have to be adjusted
+    if qty_total > 9:
+        pre_qty_space = ' '*4
+        post_qty_space = ' '*4
+    else:
+        pre_qty_space = ' '*4
+        post_qty_space = ' '*5
+    #printing out the 4 columns - col1 for Item name, col2 for Unite Price, col3 for Quantity and col4 for Price
+    for order in order_list:
+        col1 = order["Item name"]
+        col2 = order["Price"]
+        col3 = order["Quantity"]
+        #col4 is the total price column while col2 is unit price column
+        col4 = float("{:.2f}".format(col2*col3))
+        
+        print(f"{col1}{' '*(max_value_length+2-len(str(col1)))}|${' '*(12-len(str(col2)))}{col2}|{' '* 4}{col3}{' '* 5}|${' '*(7-len(str(col4)))}{col4}")
 
-print("This is what we are preparing for you.\n")
-
-#Identify the maximum length of an Item Name string to dynamically adjust the column width
-max_value_length = max(len(str(value)) for item in order_list for value in item.values())
-itemname_spaces=max_value_length+2-len("item name")
-item_col_dashes=('-'*(max_value_length+2))
-
-#Begin print of the final table
-print(f"{item_col_dashes}|-------------|----------|--------")
-print(f"Item name{' ' * itemname_spaces}| Unit Price  | Quantity |   Price")
-print(f"{item_col_dashes}|-------------|----------|--------")
-#To print the quantity total, the qty_total, pre_qty_space, post_qty_space are created
-qty_total=sum(item['Quantity'] for item in order_list)
-#The quantity column len is 10, so based on the total being 10 or lower the number of spaces have to be adjusted
-if qty_total > 9:
-    pre_qty_space = ' '*4
-    post_qty_space = ' '*4
-else:
-    pre_qty_space = ' '*4
-    post_qty_space = ' '*5
-#printing out the 4 columns - col1 for Item name, col2 for Unite Price, col3 for Quantity and col4 for Price
-for order in order_list:
-    col1 = order["Item name"]
-    col2 = order["Price"]
-    col3 = order["Quantity"]
-    #col4 is the total price column while col2 is unit price column
-    col4 = float("{:.2f}".format(col2*col3))
+    print(f"{item_col_dashes}|-------------|----------|--------")
+    print(f"Total{' '*(max_value_length+2-len(('Total')))}|{' '*13}|{pre_qty_space}{qty_total}{post_qty_space}|${' '*(7-len(str(Price_total_print)))}{Price_total_print}")
+    print(f'\nYour Total Price is: {sum(Price_total):.2f}\n')
     
-    print(f"{col1}{' '*(max_value_length+2-len(str(col1)))}|{' '*(13-len(str(col2)))}{col2}|{' '* 4}{col3}{' '* 5}|{' '*(8-len(str(col4)))}{col4}")
-
-print(f"{item_col_dashes}|-------------|----------|--------")
-print(f"Total{' '*(max_value_length+2-len(('Total')))}|{' '*13}|{pre_qty_space}{qty_total}{post_qty_space}|{' '*(8-len(str(sum(Price_total))))}{sum(Price_total):.2f}")
-print(f'\nYour Total Price is: {sum(Price_total):.2f}\n')
-
+else:
+    print("Exiting order as you did not enter any valid items")
